@@ -48,8 +48,8 @@ const MqttDisplay = () => {
   const percentage = (paperCount / MAX_PAPERS) * 100;
 
   const getProgressBarColor = () => {
-    if (paperCount <= 20) return '#ef4444';
-    if (paperCount <= 100) return '#eab308';
+    if (paperCount <= 19) return '#ef4444';
+    if (paperCount <= 49) return '#eab308';
     return '#22c55e';
   };
 
@@ -86,13 +86,13 @@ const MqttDisplay = () => {
         }} />
       </div>
 
-      {paperCount <= 100 && (
+      {paperCount <= 49 && (
         <div style={{
           marginTop: '10px',
-          color: paperCount <= 20 ? '#ef4444' : '#eab308',
+          color: paperCount <= 19 ? '#ef4444' : '#eab308',
           fontWeight: 'bold'
         }}>
-          {paperCount <= 20 ? 'Kritično - Molimo nadopunite papir!' : 'Niska razina papira'}
+          {paperCount <= 19 ? 'Kritično!' : 'Niska razina papira'}
         </div>
       )}
     </div>
