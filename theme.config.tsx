@@ -1,13 +1,14 @@
-import React from 'react'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 
-const config: DocsThemeConfig = {
-  logo: <span>Upute za montažu</span>,
-  
+const themeConfig: DocsThemeConfig = {
+  logo: <span>Denka Setup</span>,
+  project: {
+    link: 'https://github.com/shuding/nextra-docs-template',
+  },
   docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
   footer: {
-    text: 'Đenka Photobooth',
+    text: 'Denka Setup Documentation',
   },
 }
 
-export default config
+export default themeConfig
