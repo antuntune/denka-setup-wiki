@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
-import mqtt from 'mqtt';
+import mqtt, { IClientOptions } from 'mqtt';
 
 const MqttDisplay = () => {
   const [mqttData, setMqttData] = useState<string>('');
@@ -9,11 +9,11 @@ const MqttDisplay = () => {
 
   useEffect(() => {
     const brokerUrl = `wss://${process.env.NEXT_PUBLIC_MQTT_URL}:8884/mqtt`;
-    const options = {
+    const options: IClientOptions = {
       username: process.env.NEXT_PUBLIC_MQTT_USERNAME,
       password: process.env.NEXT_PUBLIC_MQTT_PASSWORD,
-      protocol: 'wss',
-      port: parseInt(process.env.NEXT_PUBLIC_MQTT_PORT || '8884'),
+      protocol: 'wss' as 'wss', // explicitly type as 'wss'
+      port: parseInt(process.env.NEXT_PUBLIC_MQTT_PORT || '8883'),
     };
 
     const mqttClient = mqtt.connect(brokerUrl, options);
@@ -48,8 +48,8 @@ const MqttDisplay = () => {
   const percentage = (paperCount / MAX_PAPERS) * 100;
 
   const getProgressBarColor = () => {
-    if (paperCount <= 19) return '#ef4444';
-    if (paperCount <= 50) return '#eab308';
+    if (paperCount <= 20) return '#ef4444';
+    if (paperCount <= 100) return '#eab308';
     return '#22c55e';
   };
 
@@ -67,7 +67,7 @@ const MqttDisplay = () => {
       
       <div style={{ marginBottom: '10px' }}>
         <span style={{ fontWeight: 'bold' }}>
-          {paperCount} / {MAX_PAPERS} papira preostalo
+          {paperCount} / {MAX_PAPERS} listova
         </span>
       </div>
 
@@ -86,13 +86,13 @@ const MqttDisplay = () => {
         }} />
       </div>
 
-      {paperCount <= 50 && (
+      {paperCount <= 100 && (
         <div style={{
           marginTop: '10px',
-          color: paperCount <= 19 ? '#ef4444' : '#eab308',
+          color: paperCount <= 20 ? '#ef4444' : '#eab308',
           fontWeight: 'bold'
         }}>
-          {paperCount <= 19 ? 'Kritično' : 'Niska razina papira'}
+          {paperCount <= 20 ? 'Kritično - Molimo nadopunite papir!' : 'Niska razina papira'}
         </div>
       )}
     </div>
